@@ -1,0 +1,22 @@
+setwd("c:/Users/mqbpjhr4/Documents")
+df<-read.table("LatentG.csv",header=T,sep=",")
+library(metafor)
+library(lme4)
+library(ggplot2)
+head(df)
+
+attach(df)
+PL<-ggplot(df, aes(x=Age, y=MeanBMI, xlim(4,11),colour=Group, linetype=Source))+geom_smooth(se=FALSE)+
+  labs(x="Age (yrs)",y="Group BMI mean")+theme_bw()+theme(legend.title=element_blank(),legend.key=element_rect(fill = "white"))
+cbbPalette<-c("Black","Red","Green","Blue3","azure4","Red","Red","Red")
+PL+
+geom_ribbon(data=df[df$Series==1,],aes(ymin=lwr,ymax=upr),alpha=0.1)+
+geom_ribbon(data=df[df$Series==2,],aes(ymin=lwr,ymax=upr),alpha=0.1)+
+geom_ribbon(data=df[df$Series==3,],aes(ymin=lwr,ymax=upr),alpha=0.1)+
+geom_ribbon(data=df[df$Series==4,],aes(ymin=lwr,ymax=upr),alpha=0.1)+
+geom_ribbon(data=df[df$Series==5,],aes(ymin=lwr,ymax=upr),alpha=0.1)+
+geom_ribbon(data=df[df$Series==6,],aes(ymin=lwr,ymax=upr),alpha=0.1)+
+geom_ribbon(data=df[df$Series==7,],aes(ymin=lwr,ymax=upr),alpha=0.1)+
+geom_ribbon(data=df[df$Series==8,],aes(ymin=lwr,ymax=upr),alpha=0.1)+
+geom_ribbon(data=df[df$Series==9,],aes(ymin=lwr,ymax=upr),alpha=0.1)+
+geom_ribbon(data=df[df$Series==10,],aes(ymin=lwr,ymax=upr),alpha=0.1)
