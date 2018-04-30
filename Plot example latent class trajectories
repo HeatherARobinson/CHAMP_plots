@@ -1,0 +1,29 @@
+"setwd(""c:/Users/mqbpjhr4/Documents"")"
+"data<-read.table(""MedBMIlitreviewweights2.csv"",header=T,sep="","")"
+library(metafor)
+library(lme4)
+head(data)
+"dataA<-data[data$group==""A"",]"
+dataA$wts<-1/dataA$n
+"boysA<-dataA[dataA$gender==""m"",]"
+attach(boysA)
+"a<-aggregate(boysA$sums,list(boysA$age),sum)"
+"b<-aggregate(boysA$n,list(boysA$age),sum)"
+"c<-merge(a,b,by=""Group.1"")"
+c$BMI<-c$x.x/c$x.y
+d<-c
+e<-c
+d$Group.1<-d$Group.1+1
+e$Group.1<-e$Group.1-1
+"c$traj<-""typical"""
+"d$traj<-""late"""
+"e$traj<-""early"""
+"df<-rbind(c,d,e)"
+df$age<-df$Group.1
+attach(df)
+library(ggplot2)
+
+"PL<-ggplot(df, aes(x=age, y=BMI, xlim(2,11),colour=traj, shape=traj,linetype=traj)) +geom_smooth(se=FALSE)+"
+"  labs(x=""Age (yrs)"",y=""BMI"")+ggtitle(""Example BMI trajectories"")+theme_bw()+"
+  theme(legend.title=element_blank())
+PL
